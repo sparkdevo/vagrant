@@ -1,0 +1,18 @@
+# 启动一个运行 ubuntu 16.04 的虚机，2 核 2G 内存。
+# 在启动完成后运行 apt-get update 命令。
+# 默认的网络类型为 NAT，虚机 22 端口被映射到主机的 2222 端口。
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "vmhello"
+ 
+    vb.cpus = 2
+    vb.memory = "2048"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+  SHELL
+end
